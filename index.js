@@ -1,15 +1,21 @@
 import express from "express"
-import mongoose from "mongoose"
+// import mongoose from "mongoose"
 import { channel } from "./models/User.js"
 import { body, validationResult } from "express-validator";
+import bodyParser from 'body-parser';
+import login from './routes/login.js'; 
+import cors from 'cors'
 
 const app = express()
-const port = 3000
-
+app.use(cors())
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://127.0.0.1:27017/channel').then(() => console.log('Connected to MongoDB'))
-    .catch((err) => console.log(err));
+// routes
+app.use('/login', login);
+
+// mongoose.connect('mongodb://127.0.0.1:27017/channel').then(() => console.log('Connected to MongoDB'))
+//     .catch((err) => console.log(err));
 
 app.post('/api/channel',[
     body('name').isLength({min: 3}),    
@@ -38,5 +44,5 @@ app.post('/api/channel',[
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`Example app listening on port ${PORT}`)
 })
