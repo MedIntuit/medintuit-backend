@@ -5,7 +5,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: process.env.DB_USERNAME,       
     password: process.env.DB_PASSWORD, 
-    database: 'medintuit'
+    database: 'medintuitdb'
 });
 
 connection.connect((err) => {

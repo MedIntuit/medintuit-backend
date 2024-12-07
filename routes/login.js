@@ -6,15 +6,15 @@ const router = express.Router();
 
 // Handle POST request for /login
 router.post('/', (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!username || !password) {
-        return res.status(400).json({ message: 'Username and password are required' });
+    if (!email || !password) {
+        return res.status(400).json({ message: 'email and password are required' });
     }
 
-    // Query the database for the username
-    const sql = 'SELECT * FROM users WHERE username = ?';
-    connection.query(sql, [username], (err, results) => {
+    // Query the database for the email
+    const sql = 'SELECT * FROM users WHERE email = ?';
+    connection.query(sql, [email], (err, results) => {
         if (err) throw err;
 
         if (results.length > 0) {
